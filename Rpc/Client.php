@@ -52,16 +52,16 @@ class Client implements ClientInterface
     }
 
     /**
-     * @param  MethodCall                                       $call
-     * @throws \Exception
-     * @throws \Seven\RpcBundle\Exception\UnknownMethodResponse
-     * @param  MethodCall                                       $call
+     * @param  MethodCall $call
+     * @param string $requestMethod
      * @return null|string
+     * @throws UnknownMethodResponse
+     * @throws \Exception
      */
 
-    protected function _call(MethodCall $call)
+    protected function _call(MethodCall $call, $requestMethod = 'GET')
     {
-        $methodResponse = $this->_handle($call);
+        $methodResponse = $this->_handle($call, $requestMethod);
 
         if($methodResponse instanceof MethodFault)
             throw $methodResponse->getException();
@@ -73,14 +73,15 @@ class Client implements ClientInterface
     }
 
     /**
-     * @param  MethodCall     $call
+     * @param  MethodCall $call
+     * @param string $requestMethod
      * @return MethodResponse
      */
 
-    protected function _handle(MethodCall $call)
+    protected function _handle(MethodCall $call, $requestMethod = 'GET')
     {
         $request = $this->impl->createHttpRequest($call);
-        $request = Request::create($this->webServiceUrl, 'GET', array(), array(), array(), array(), $request->getContent());
+        $request = Request::create($this->webServiceUrl, $requestMethod, array(), array(), array(), array(), $request->getContent());
         $response = $this->transport->makeRequest($request);
 
         return $this->impl->createMethodResponse($response);

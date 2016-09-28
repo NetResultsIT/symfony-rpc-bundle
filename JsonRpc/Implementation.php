@@ -116,7 +116,7 @@ class Implementation extends BaseImplementation
         }
 
         if (isset($data['result'])) {
-            return new MethodReturn($data['result']);
+            return new MethodReturn($data['result'], gettype($data['result']));
         } elseif (isset($data['error'])) {
             if (!isset($data['error']['message'])) {
                 throw new InvalidJsonRpcContent('The JSON-RPC fault message is not passed');

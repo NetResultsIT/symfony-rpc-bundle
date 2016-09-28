@@ -187,7 +187,7 @@ class Implementation extends BaseImplementation
             }
         }
 
-        return new MethodReturn(reset($parameters));
+        return new MethodReturn(reset($parameters), gettype($parameters));
     }
 
     /**

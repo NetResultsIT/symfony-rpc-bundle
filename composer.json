@@ -17,7 +17,7 @@
         "phpunit/phpunit": "*"
     },
     "autoload": {
-        "psr-0": { "NetResults\\RpcBundle": "" }
+        "psr-0": { "Seven\\RpcBundle": "" }
     },
-    "target-dir": "NetResults/RpcBundle"
+    "target-dir": "Seven/RpcBundle"
 }

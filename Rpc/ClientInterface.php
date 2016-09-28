@@ -16,10 +16,11 @@ interface ClientInterface
 
     /**
      * @param $methodName
-     * @param $parameters
+     * @param array $parameters
+     * @param string $requestMethod
      * @return mixed
      */
 
-    public function call($methodName, $parameters = array());
+    public function call($methodName, $parameters = array(), $requestMethod = 'GET');
 
 }

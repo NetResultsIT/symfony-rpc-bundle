@@ -42,13 +42,14 @@ class Client implements ClientInterface
 
     /**
      * @param $methodName
-     * @param  array             $parameters
+     * @param  array $parameters
+     * @param string $requestMethod
      * @return mixed|null|string
      */
 
-    public function call($methodName, $parameters = array())
+    public function call($methodName, $parameters = array(), $requestMethod = 'GET')
     {
-        return $this->_call(new MethodCall($methodName, $parameters));
+        return $this->_call(new MethodCall($methodName, $parameters), $requestMethod);
     }
 
     /**

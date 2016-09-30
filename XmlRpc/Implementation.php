@@ -24,6 +24,7 @@ use Seven\RpcBundle\Rpc\Method\MethodReturn;
 use Seven\RpcBundle\XmlRpc\ValueType\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Implementation extends BaseImplementation
 {
@@ -153,6 +154,10 @@ class Implementation extends BaseImplementation
 
     public function createMethodResponse(Response $response)
     {
+        if ($response->getStatusCode() !== Response::HTTP_OK)
+        {
+            throw new HttpException($response->getStatusCode(), Response::$statusTexts[$response->getStatusCode()]);
+        }
         $document = new \DOMDocument();
 
         // validate schema

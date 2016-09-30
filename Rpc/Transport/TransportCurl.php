@@ -51,7 +51,7 @@ class TransportCurl implements TransportInterface
             throw new CurlTransportException($error, $code);
         }
 
-        return new Response($responseBody);
+        return new Response($responseBody, $curlRequest->getInfo(CURLINFO_HTTP_CODE));
     }
 
     /**

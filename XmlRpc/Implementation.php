@@ -149,6 +149,7 @@ class Implementation extends BaseImplementation
      * @throws \Seven\RpcBundle\Exception\Fault
      * @throws \Seven\RpcBundle\Exception\XmlRpcSchemaNotFound
      * @throws \Seven\RpcBundle\Exception\InvalidXmlRpcContent
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      * @return MethodResponse
      */
 

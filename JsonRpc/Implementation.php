@@ -96,10 +96,15 @@ class Implementation extends BaseImplementation
      * @return MethodFault|MethodResponse|MethodReturn
      * @throws \Seven\RpcBundle\Exception\InvalidJsonRpcVersion
      * @throws \Seven\RpcBundle\Exception\InvalidJsonRpcContent
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
 
     public function createMethodResponse(Response $response)
     {
+        if ($response->getStatusCode() !== Response::HTTP_OK)
+        {
+            throw new HttpException($response->getStatusCode(), Response::$statusTexts[$response->getStatusCode()]);
+        }
         $content = $response->getContent();
         if (empty($content)) {
             throw new InvalidJsonRpcContent('The JSON-RPC response is empty');

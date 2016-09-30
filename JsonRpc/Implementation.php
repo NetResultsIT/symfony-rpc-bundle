@@ -22,6 +22,7 @@ use Seven\RpcBundle\Rpc\Method\MethodFault;
 use Seven\RpcBundle\Rpc\Method\MethodReturn;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Implementation extends BaseImplementation
 {

@@ -44,25 +44,27 @@ class Client implements ClientInterface
      * @param $methodName
      * @param  array $parameters
      * @param string $requestMethod
+     * @param boolean $validateResponse
      * @return mixed|null|string
      */
 
-    public function call($methodName, $parameters = array(), $requestMethod = 'GET')
+    public function call($methodName, $parameters = array(), $requestMethod = 'GET', $validateResponse = true)
     {
-        return $this->_call(new MethodCall($methodName, $parameters), $requestMethod);
+        return $this->_call(new MethodCall($methodName, $parameters), $requestMethod, $validateResponse);
     }
 
     /**
      * @param  MethodCall $call
      * @param string $requestMethod
+     * @param boolean $validateResponse
      * @return null|string
      * @throws UnknownMethodResponse
      * @throws \Exception
      */
 
-    protected function _call(MethodCall $call, $requestMethod = 'GET')
+    protected function _call(MethodCall $call, $requestMethod = 'GET', $validateResponse = true)
     {
-        $methodResponse = $this->_handle($call, $requestMethod);
+        $methodResponse = $this->_handle($call, $requestMethod, $validateResponse);
 
         if($methodResponse instanceof MethodFault)
             throw $methodResponse->getException();
@@ -76,16 +78,17 @@ class Client implements ClientInterface
     /**
      * @param  MethodCall $call
      * @param string $requestMethod
+     * @param boolean $validateResponse
      * @return MethodResponse
      */
 
-    protected function _handle(MethodCall $call, $requestMethod = 'GET')
+    protected function _handle(MethodCall $call, $requestMethod = 'GET', $validateResponse = true)
     {
         $request = $this->impl->createHttpRequest($call);
         $request = Request::create($this->webServiceUrl, $requestMethod, array(), array(), array(), array(), $request->getContent());
         $response = $this->transport->makeRequest($request);
 
-        return $this->impl->createMethodResponse($response);
+        return $this->impl->createMethodResponse($response, $validateResponse);
     }
 
 }

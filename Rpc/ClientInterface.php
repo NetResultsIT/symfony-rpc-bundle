@@ -18,9 +18,10 @@ interface ClientInterface
      * @param $methodName
      * @param array $parameters
      * @param string $requestMethod
+     * @param boolean $validateResponse
      * @return mixed
      */
 
-    public function call($methodName, $parameters = array(), $requestMethod = 'GET');
+    public function call($methodName, $parameters = array(), $requestMethod = 'GET', $validateResponse = true);
 
 }

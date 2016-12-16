@@ -93,14 +93,15 @@ class Implementation extends BaseImplementation
     }
 
     /**
-     * @param  Response                                         $response
+     * @param Response $response
+     * @param boolean $validateResponse
      * @return MethodFault|MethodResponse|MethodReturn
      * @throws \Seven\RpcBundle\Exception\InvalidJsonRpcVersion
      * @throws \Seven\RpcBundle\Exception\InvalidJsonRpcContent
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
 
-    public function createMethodResponse(Response $response)
+    public function createMethodResponse(Response $response, $validateResponse = true)
     {
         if ($response->getStatusCode() !== Response::HTTP_OK)
         {

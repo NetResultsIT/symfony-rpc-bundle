@@ -145,15 +145,13 @@ class Implementation extends BaseImplementation
     }
 
     /**
-     * @param  Response                                        $response
-     * @throws \Seven\RpcBundle\Exception\Fault
-     * @throws \Seven\RpcBundle\Exception\XmlRpcSchemaNotFound
-     * @throws \Seven\RpcBundle\Exception\InvalidXmlRpcContent
-     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     * @param  Response $response
+     * @param boolean $validateResponse
      * @return MethodResponse
+     * @throws \Seven\RpcBundle\Exception\InvalidXmlRpcContent
      */
 
-    public function createMethodResponse(Response $response)
+    public function createMethodResponse(Response $response, $validateResponse = true)
     {
         if ($response->getStatusCode() !== Response::HTTP_OK)
         {
@@ -170,7 +168,7 @@ class Implementation extends BaseImplementation
 
         libxml_use_internal_errors($useInternal);
 
-        if (!$this->validateXml($document, "methodResponse")) {
+        if ($validateResponse && !$this->validateXml($document, "methodResponse")) {
             throw new InvalidXmlRpcContent('The XML document has not valid XML-RPC content');
         }
 

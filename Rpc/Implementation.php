@@ -28,11 +28,12 @@ abstract class Implementation
     abstract public function createMethodCall(Request $request);
 
     /**
-     * @param  Response       $response
+     * @param Response $response
+     * @param boolean $validateResponse
      * @return MethodResponse
      */
 
-    abstract public function createMethodResponse(Response $response);
+    abstract public function createMethodResponse(Response $response, $validateResponse = true);
 
     /**
      * @param  MethodResponse $response

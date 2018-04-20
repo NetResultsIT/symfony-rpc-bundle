@@ -211,7 +211,7 @@ class Implementation extends BaseImplementation
         }
 
         $httpRequest = new Request(array(), array(), array(), array(), array(), array(), $document->saveXML());
-        $httpRequest->headers->add(array("content-type" => "text/xml"));
+        $httpRequest->headers->set('content-type', 'text/xml');
 
         return $httpRequest;
     }

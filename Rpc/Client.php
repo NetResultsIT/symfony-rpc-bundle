@@ -85,7 +85,9 @@ class Client implements ClientInterface
     protected function _handle(MethodCall $call, $requestMethod = 'GET', $validateResponse = true)
     {
         $request = $this->impl->createHttpRequest($call);
+        $contentType = $request->headers->get('content-type');
         $request = Request::create($this->webServiceUrl, $requestMethod, array(), array(), array(), array(), $request->getContent());
+        $request->headers->set('content-type', $contentType);
         $response = $this->transport->makeRequest($request);
 
         return $this->impl->createMethodResponse($response, $validateResponse);

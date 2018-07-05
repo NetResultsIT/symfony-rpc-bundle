@@ -349,6 +349,9 @@ class Implementation extends BaseImplementation
     {
         for ($i = 0; $i < $element->childNodes->length; $i++) {
             $item = $element->childNodes->item($i);
+            if ($item instanceof \DOMText) {
+                return new \DOMElement('string', $item->textContent);
+            }
             if ($item instanceof \DOMElement) {
                 return $item;
             }
